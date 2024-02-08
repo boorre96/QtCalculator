@@ -19,12 +19,13 @@ public:
 
 private:
     Ui::Calculator *ui;
-private slots:
+
+public slots:
     void numberButton();
-    void mathButton();
-    void equalButton();
-    void eraseButton();
-    void commaButton();
-    void negativeSign();
+    // void mathButton();
+    // void equalButton();
+    // void clearButton();
+    // void commaButton();
+    // void negativeButton();
 };
 #endif // CALCULATOR_H
