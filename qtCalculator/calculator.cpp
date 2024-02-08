@@ -1,5 +1,5 @@
 #include "calculator.h"
-#include "./ui_calculator.h"
+#include "ui_calculator.h"
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
