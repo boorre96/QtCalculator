@@ -44,6 +44,23 @@ void Calculator::numberButton()
 {
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
+
+    ui->buttonClear->setText("C");
+
+    if(ui->displayNumbers->text() != "0")
+    {
+        QString numbersFromDisplay = ui->displayNumbers->text();
+        QString numberPressed = buttonPressed->text();
+        numbersFromDisplay+=numberPressed;
+        ui->displayNumbers->setText(numbersFromDisplay);
+
+    }
+    else
+    {
+        QString number = buttonPressed->text();
+        ui->displayNumbers->setText(number);
+    }
+
 }
 
 void Calculator::mathButton()
@@ -61,6 +78,18 @@ void Calculator::clearButton()
 {
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
+
+    if(buttonPressed->text() == "AC")
+    {
+        this->storedValue.clear();
+        ui->displayNumbers->setText("0");
+
+    }
+    else
+    {
+        ui->displayNumbers->setText("0");
+        buttonPressed->setText("AC");
+    }
 }
 
 void Calculator::commaButton()

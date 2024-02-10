@@ -2,6 +2,7 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
+#include <QLineEdit>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::Calculator *ui;
+    QString storedValue = 0;
 
 public slots:
     void numberButton();
