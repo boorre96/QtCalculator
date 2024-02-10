@@ -22,10 +22,10 @@ private:
 
 public slots:
     void numberButton();
-    // void mathButton();
-    // void equalButton();
-    // void clearButton();
-    // void commaButton();
-    // void negativeButton();
+    void mathButton();
+    void equalButton();
+    void clearButton();
+    void commaButton();
+    void negativeButton();
 };
 #endif // CALCULATOR_H
