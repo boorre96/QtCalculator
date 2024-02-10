@@ -46,7 +46,11 @@ void Calculator::numberButton()
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
 
     ui->buttonClear->setText("C");
-
+    if(eraseDisplay)
+    {
+        eraseDisplay = false;
+        ui->displayNumbers->clear();
+    }
     if(ui->displayNumbers->text() != "0")
     {
         QString numbersFromDisplay = ui->displayNumbers->text();
@@ -67,6 +71,38 @@ void Calculator::mathButton()
 {
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
+
+    eraseDisplay = true;
+
+    if(buttonPressed->text() == '+')
+    {
+        int storedValueInt = this->storedValue.toInt() + ui->displayNumbers->text().toInt();
+        this->storedValue = QString::number(storedValueInt);
+        ui->displayNumbers->setText(storedValue);
+        std::cout << storedValue.toStdString() + " pressed" << std::endl;
+
+
+    }
+    else if(buttonPressed->text() == '-')
+    {
+
+    }
+    else if(buttonPressed->text() == '/')
+    {
+
+    }
+    else if(buttonPressed->text() == '*')
+    {
+
+    }
+    else if(buttonPressed->text() == '%')
+    {
+
+    }
+    else
+    {
+        std::cout <<"Wrong value" << std::endl;
+    }
 }
 void Calculator::equalButton()
 {
