@@ -17,11 +17,21 @@ class Calculator : public QMainWindow
 public:
     Calculator(QWidget *parent = nullptr);
     ~Calculator();
-
+    enum MathButtonActive {
+        START,
+        ADDITION,
+        SUBTRACTION,
+        MULTIPLICATION,
+        DIVISION,
+        PERCENT
+    };
 private:
     Ui::Calculator *ui;
     QString storedValue = "0";
-    bool eraseDisplay = false;
+    QString storedValueEqual = "0";
+    bool eraseDisplay   = false;
+
+    MathButtonActive mathButtonActive;
 
 public slots:
     void numberButton();

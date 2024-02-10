@@ -81,14 +81,23 @@ void Calculator::mathButton()
     {
         int storedValueInt = this->storedValue.toInt() + ui->displayNumbers->text().toInt();
         ui->displayNumbers->setText(QString::number(storedValueInt));
+        this->mathButtonActive = MathButtonActive::ADDITION;
+
     }
     else if(buttonPressed->text() == '-')
     {
-        int storedValueInt = this->storedValue.toInt() - ui->displayNumbers->text().toInt();
-        ui->displayNumbers->setText(QString::number(storedValueInt));
+        this->mathButtonActive = MathButtonActive::SUBTRACTION;
+        if(this->storedValue != "0")
+        {
+            int storedValueInt = this->storedValue.toInt() - ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        this->storedValue = ui->displayNumbers->text();
     }
     else if(buttonPressed->text() == '/')
     {
+        this->mathButtonActive = MathButtonActive::DIVISION;
+
         if(this->storedValue != "0")
         {
             int storedValueInt = this->storedValue.toInt() / ui->displayNumbers->text().toInt();
@@ -101,6 +110,7 @@ void Calculator::mathButton()
     }
     else if(buttonPressed->text() == '*')
     {
+        this->mathButtonActive = MathButtonActive::MULTIPLICATION;
         if(this->storedValue != "0")
         {
             int storedValueInt = this->storedValue.toInt() * ui->displayNumbers->text().toInt();
@@ -126,22 +136,62 @@ void Calculator::equalButton()
 {
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
+
+    if(this->storedValue != "0")
+    {
+        this->storedValueEqual = this->storedValue;
+        this->storedValue = "0";
+    }
+
+    switch (mathButtonActive) {
+    case ADDITION:
+    {
+        int storedValueInt = this->storedValueEqual.toInt() + ui->displayNumbers->text().toInt();
+        ui->displayNumbers->setText(QString::number(storedValueInt));
+        break;
+    }
+    case DIVISION:
+    {
+        int storedValueInt = this->storedValueEqual.toInt() / ui->displayNumbers->text().toInt();
+        ui->displayNumbers->setText(QString::number(storedValueInt));
+        break;
+    }
+    case SUBTRACTION:
+    {
+        int storedValueInt = this->storedValueEqual.toInt() - ui->displayNumbers->text().toInt();
+        ui->displayNumbers->setText(QString::number(storedValueInt));
+        break;
+    }
+    case MULTIPLICATION:
+    {
+        int storedValueInt = this->storedValueEqual.toInt() * ui->displayNumbers->text().toInt();
+        ui->displayNumbers->setText(QString::number(storedValueInt));
+        break;
+    }
+    case PERCENT:
+
+        break;
+    default:
+        break;
+    }
 }
 
 void Calculator::clearButton()
 {
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
+    this->mathButtonActive = MathButtonActive::START;
 
     if(buttonPressed->text() == "AC")
     {
-        this->storedValue.clear();
+        this->storedValue = "0";
+        this->storedValueEqual = "0";
         ui->displayNumbers->setText("0");
-
     }
     else
     {
         ui->displayNumbers->setText("0");
+        this->storedValueEqual = "0";
         buttonPressed->setText("AC");
     }
 }
