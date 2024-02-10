@@ -21,7 +21,8 @@ Calculator::Calculator(QWidget *parent)
 
 void Calculator::numberButton()
 {
-    std::cout <<" 0 pressed" << std::endl;
+    QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
+    std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
 }
 
 Calculator::~Calculator()
