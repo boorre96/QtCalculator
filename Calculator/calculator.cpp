@@ -45,6 +45,7 @@ void Calculator::numberButton()
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
 
+    equalButtonLastPressed = false;
 
     ui->buttonClear->setText("C");
     if(eraseDisplay)
@@ -75,6 +76,7 @@ void Calculator::mathButton()
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
 
+    equalButtonLastPressed = false;
     eraseDisplay = true;
 
     if(buttonPressed->text() == '+')
@@ -137,35 +139,69 @@ void Calculator::equalButton()
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
     this->eraseDisplay = true;
+
     if(this->storedValue != "0")
     {
         this->storedValueEqual = this->storedValue;
+        this->storedValueFromDisplay = ui->displayNumbers->text();
         this->storedValue = "0";
     }
 
     switch (mathButtonActive) {
     case ADDITION:
     {
-        int storedValueInt = this->storedValueEqual.toInt() + ui->displayNumbers->text().toInt();
-        ui->displayNumbers->setText(QString::number(storedValueInt));
+        if(equalButtonLastPressed)
+        {
+            int storedValueInt = this->storedValueFromDisplay.toInt()+ ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            int storedValueInt = this->storedValueEqual.toInt() + ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
         break;
     }
     case DIVISION:
     {
-        int storedValueInt = this->storedValueEqual.toInt() / ui->displayNumbers->text().toInt();
-        ui->displayNumbers->setText(QString::number(storedValueInt));
+        if(equalButtonLastPressed)
+        {
+            int storedValueInt = ui->displayNumbers->text().toInt() / this->storedValueFromDisplay.toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            int storedValueInt = this->storedValueEqual.toInt() / ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
         break;
     }
     case SUBTRACTION:
     {
-        int storedValueInt = this->storedValueEqual.toInt() - ui->displayNumbers->text().toInt();
-        ui->displayNumbers->setText(QString::number(storedValueInt));
+        if(equalButtonLastPressed)
+        {
+            int storedValueInt = ui->displayNumbers->text().toInt() - this->storedValueFromDisplay.toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            int storedValueInt = this->storedValueEqual.toInt() - ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
         break;
     }
     case MULTIPLICATION:
     {
-        int storedValueInt = this->storedValueEqual.toInt() * ui->displayNumbers->text().toInt();
-        ui->displayNumbers->setText(QString::number(storedValueInt));
+        if(equalButtonLastPressed)
+        {
+            int storedValueInt = ui->displayNumbers->text().toInt() * this->storedValueFromDisplay.toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            int storedValueInt = this->storedValueEqual.toInt() * ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
         break;
     }
     case PERCENT:
@@ -174,6 +210,8 @@ void Calculator::equalButton()
     default:
         break;
     }
+
+    this->equalButtonLastPressed = true;
 }
 
 void Calculator::clearButton()

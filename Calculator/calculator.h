@@ -29,7 +29,9 @@ private:
     Ui::Calculator *ui;
     QString storedValue = "0";
     QString storedValueEqual = "0";
+    QString storedValueFromDisplay = "0";
     bool eraseDisplay   = false;
+    bool equalButtonLastPressed = false;
 
     MathButtonActive mathButtonActive;
 
