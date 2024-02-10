@@ -45,11 +45,14 @@ void Calculator::numberButton()
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
 
+
     ui->buttonClear->setText("C");
     if(eraseDisplay)
     {
         eraseDisplay = false;
+        this->storedValue = ui->displayNumbers->text();
         ui->displayNumbers->clear();
+
     }
     if(ui->displayNumbers->text() != "0")
     {
@@ -77,27 +80,42 @@ void Calculator::mathButton()
     if(buttonPressed->text() == '+')
     {
         int storedValueInt = this->storedValue.toInt() + ui->displayNumbers->text().toInt();
-        this->storedValue = QString::number(storedValueInt);
-        ui->displayNumbers->setText(storedValue);
-        std::cout << storedValue.toStdString() + " pressed" << std::endl;
-
-
+        ui->displayNumbers->setText(QString::number(storedValueInt));
     }
     else if(buttonPressed->text() == '-')
     {
-
+        int storedValueInt = this->storedValue.toInt() - ui->displayNumbers->text().toInt();
+        ui->displayNumbers->setText(QString::number(storedValueInt));
     }
     else if(buttonPressed->text() == '/')
     {
-
+        if(this->storedValue != "0")
+        {
+            int storedValueInt = this->storedValue.toInt() / ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            this->storedValue = ui->displayNumbers->text();
+        }
     }
     else if(buttonPressed->text() == '*')
     {
-
+        if(this->storedValue != "0")
+        {
+            int storedValueInt = this->storedValue.toInt() * ui->displayNumbers->text().toInt();
+            ui->displayNumbers->setText(QString::number(storedValueInt));
+        }
+        else
+        {
+            this->storedValue = ui->displayNumbers->text();
+        }
     }
     else if(buttonPressed->text() == '%')
     {
-
+        int storedValueInt = this->storedValue.toInt() + ui->displayNumbers->text().toInt();
+        this->storedValue = QString::number(storedValueInt);
+        ui->displayNumbers->setText(storedValue);
     }
     else
     {

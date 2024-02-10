@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::Calculator *ui;
-    QString storedValue = 0;
+    QString storedValue = "0";
     bool eraseDisplay = false;
 
 public slots:
