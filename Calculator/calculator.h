@@ -32,7 +32,6 @@ private:
     QString storedValueFromDisplay = "0";
     bool eraseDisplay   = false;
     bool equalButtonLastPressed = false;
-
     MathButtonActive mathButtonActive;
 
 public slots:

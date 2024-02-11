@@ -139,7 +139,6 @@ void Calculator::equalButton()
     QPushButton *buttonPressed = dynamic_cast<QPushButton*>(sender());
     std::cout << buttonPressed->text().toStdString() + " pressed" << std::endl;
     this->eraseDisplay = true;
-
     if(this->storedValue != "0")
     {
         this->storedValueEqual = this->storedValue;
